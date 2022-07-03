@@ -16,6 +16,10 @@ namespace Com.ParthJain.FPSShooter{
 
         private Rigidbody rig;
         private Vector3 weaponParentOrigin;
+        private Vector3 targetWeaponPosition;
+
+        private float movementCounter;
+        private float idleCounter;
 
         private float baseFOV;
         private float sprintFOVModifier=1.25f;
@@ -29,6 +33,7 @@ namespace Com.ParthJain.FPSShooter{
             baseFOV = normalCam.fieldOfView;
             Camera.main.enabled = false;
             rig = GetComponent<Rigidbody>();
+            weaponParentOrigin = weaponParent.localPosition;
         }
         
         void Update(){
@@ -48,6 +53,23 @@ namespace Com.ParthJain.FPSShooter{
             // Jump
             if(isJumping){
                 rig.AddForce(Vector3.up * jumpForce);
+            }
+
+            // If the player is head bobing or not
+            if(hmove == 0 && vmove == 0) {
+                HeadBob(idleCounter,0.025f,0.025f);
+                idleCounter += Time.deltaTime;
+                weaponParent.localPosition = Vector3.Lerp(weaponParent.localPosition, targetWeaponPosition, Time.deltaTime * 3f );
+            }
+            else if(!isSprinting){
+                HeadBob(movementCounter,0.035f,0.035f);
+                movementCounter+=Time.deltaTime * 3f;
+                weaponParent.localPosition = Vector3.Lerp(weaponParent.localPosition, targetWeaponPosition, Time.deltaTime * 9f );
+            }
+            else{
+                HeadBob(movementCounter,0.15f,0.075f);
+                movementCounter+=Time.deltaTime * 3f;
+                weaponParent.localPosition = Vector3.Lerp(weaponParent.localPosition, targetWeaponPosition, Time.deltaTime * 15f );
             }
         }   
         
@@ -87,8 +109,10 @@ namespace Com.ParthJain.FPSShooter{
     
         #region Private
         
-        void HeadBob(float x, float xintensity, float yintensity){
-
+        // Headbob is basically the swaying the camera up and down as the character walks, to simulate the way a person's body moves up 
+        // and down while taking steps. Bascially we will mimic this
+        void HeadBob(float z, float xintensity, float yintensity){
+            targetWeaponPosition = weaponParentOrigin + new Vector3(Mathf.Cos(z) * xintensity, Mathf.Sin(z * 2) * yintensity, 0);
         }
         #endregion
     }
