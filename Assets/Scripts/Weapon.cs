@@ -8,6 +8,9 @@ namespace Com.ParthJain.FPSShooter{
         #region Variables
         public Gun[] loadOut;
         public Transform weaponParent;
+
+        public GameObject bulletHole;
+        public LayerMask canBeShot;
         
         private int currentIndex;
         private GameObject currentWeapon;
@@ -25,7 +28,15 @@ namespace Com.ParthJain.FPSShooter{
         {
             if(Input.GetKeyDown(KeyCode.Alpha1)) Equip(0);
             // 0 - Left Mouse 1-Right Mouse
-            if(currentWeapon!=null) Aim(Input.GetMouseButton(1));
+            if(currentWeapon!=null){
+                Aim(Input.GetMouseButton(1));
+                
+                // If player hits left mouse button
+                if(Input.GetMouseButtonDown(0)){
+                    Shoot();
+                }
+            }
+
         }
         #endregion
         
@@ -52,6 +63,16 @@ namespace Com.ParthJain.FPSShooter{
             }
             else{
                 anchor.position = Vector3.Lerp(anchor.position,stateHip.position,Time.deltaTime * loadOut[currentIndex].aimSpeed);
+            }
+        }
+
+        void Shoot(){
+            Transform  spawn = transform.Find("Cameras/NormalCamera");
+            RaycastHit hit = new RaycastHit();
+            if(Physics.Raycast(spawn.position,spawn.forward, out hit,1000f,canBeShot)){
+                GameObject newHole = Instantiate(bulletHole,hit.point + hit.normal * 0.001f, Quaternion.identity) as GameObject;
+                newHole.transform.LookAt(hit.point + hit.normal );
+                Destroy(newHole,5f);
             }
         }
         #endregion
