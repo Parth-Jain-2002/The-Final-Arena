@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Look : MonoBehaviour
+    public class Look : MonoBehaviourPunCallbacks
     {   
 
         #region Variables

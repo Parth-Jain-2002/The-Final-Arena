@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Weapon : MonoBehaviour
+    public class Weapon : MonoBehaviourPunCallbacks
     {   
         #region Variables
         public Gun[] loadOut;

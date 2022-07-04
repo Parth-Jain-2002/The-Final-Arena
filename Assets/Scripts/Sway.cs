@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Sway : MonoBehaviour
+    public class Sway : MonoBehaviourPunCallbacks
     {   
         // Basically Sway is to add the 
 

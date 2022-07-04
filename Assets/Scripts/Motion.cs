@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Motion : MonoBehaviour
+    public class Motion : MonoBehaviourPunCallbacks
     {   
         #region  Variables
         public float speed;
@@ -37,6 +38,10 @@ namespace Com.ParthJain.FPSShooter{
         }
         
         void Update(){
+            
+            // So that we don't control other player
+            if(!photonView.IsMine) return;
+
             // Axises
             float hmove = Input.GetAxisRaw("Horizontal");
             float vmove = Input.GetAxisRaw("Vertical");
@@ -76,6 +81,9 @@ namespace Com.ParthJain.FPSShooter{
         // Update is called once per frame
         void FixedUpdate()
         {   
+            // So that we don't control other player
+            if(!photonView.IsMine) return;
+
             // Axises
             float hmove = Input.GetAxisRaw("Horizontal");
             float vmove = Input.GetAxisRaw("Vertical");
