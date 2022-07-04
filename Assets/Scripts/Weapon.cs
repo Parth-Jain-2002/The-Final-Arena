@@ -12,6 +12,7 @@ namespace Com.ParthJain.FPSShooter{
         public GameObject bulletHole;
         public LayerMask canBeShot;
         
+        private float currentCoolDown;
         private int currentIndex;
         private GameObject currentWeapon;
         #endregion
@@ -32,9 +33,15 @@ namespace Com.ParthJain.FPSShooter{
                 Aim(Input.GetMouseButton(1));
                 
                 // If player hits left mouse button
-                if(Input.GetMouseButtonDown(0)){
+                if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
                     Shoot();
                 }
+
+                // Elasticity in weapon
+                currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition,Vector3.zero,Time.deltaTime * 4f);
+
+                // Cooldown - controls interval between two bullet shoot
+                if(currentCoolDown > 0) currentCoolDown -= Time.deltaTime;
             }
 
         }
@@ -68,12 +75,28 @@ namespace Com.ParthJain.FPSShooter{
 
         void Shoot(){
             Transform  spawn = transform.Find("Cameras/NormalCamera");
+            
+            // Bloom - Tilting of the bullet trajectory to make it look more realistic
+            Vector3 bloom = spawn.position + spawn.forward * 1000f;
+            bloom += Random.Range(-loadOut[currentIndex].bloom,loadOut[currentIndex].bloom) * spawn.up;
+            bloom += Random.Range(-loadOut[currentIndex].bloom,loadOut[currentIndex].bloom) * spawn.right;
+            bloom += spawn.position;
+            bloom.Normalize();
+
+            // Raycast
             RaycastHit hit = new RaycastHit();
-            if(Physics.Raycast(spawn.position,spawn.forward, out hit,1000f,canBeShot)){
+            if(Physics.Raycast(spawn.position,bloom, out hit,1000f,canBeShot)){
                 GameObject newHole = Instantiate(bulletHole,hit.point + hit.normal * 0.001f, Quaternion.identity) as GameObject;
                 newHole.transform.LookAt(hit.point + hit.normal );
                 Destroy(newHole,5f);
             }
+
+            // Gun FX
+            currentWeapon.transform.Rotate(-loadOut[currentIndex].recoil,0,0);
+            currentWeapon.transform.position -= currentWeapon.transform.forward * loadOut[currentIndex].kickback;
+
+            // CoolDown
+            currentCoolDown = loadOut[currentIndex].firerate;
         }
         #endregion
     }
