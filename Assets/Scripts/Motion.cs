@@ -11,6 +11,7 @@ namespace Com.ParthJain.FPSShooter{
         public float sprintMultiplier;
         public float jumpForce;
         public Camera normalCam;
+        public GameObject cameraParent;
         public Transform weaponParent;
         public Transform groundDetector;
         public LayerMask ground;
@@ -31,8 +32,10 @@ namespace Com.ParthJain.FPSShooter{
         // Start is called before the first frame update
         void Start()
         {   
+            cameraParent.SetActive(photonView.IsMine);
+
             baseFOV = normalCam.fieldOfView;
-            Camera.main.enabled = false;
+            if(Camera.main) Camera.main.enabled = false;
             rig = GetComponent<Rigidbody>();
             weaponParentOrigin = weaponParent.localPosition;
         }

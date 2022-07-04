@@ -27,7 +27,9 @@ namespace Com.ParthJain.FPSShooter{
 
         // Update is called once per frame
         void Update()
-        {
+        {   
+            if(!photonView.IsMine) return;
+
             if(Input.GetKeyDown(KeyCode.Alpha1)) Equip(0);
             // 0 - Left Mouse 1-Right Mouse
             if(currentWeapon!=null){
@@ -39,7 +41,9 @@ namespace Com.ParthJain.FPSShooter{
                 }
 
                 // Elasticity in weapon
-                currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition,Vector3.zero,Time.deltaTime * 4f);
+                if(currentWeapon!= null){
+                    currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition,Vector3.zero,Time.deltaTime * 4f);
+                }
 
                 // Cooldown - controls interval between two bullet shoot
                 if(currentCoolDown > 0) currentCoolDown -= Time.deltaTime;
@@ -57,6 +61,7 @@ namespace Com.ParthJain.FPSShooter{
             GameObject newEquipment = Instantiate(loadOut[ind].prefab,weaponParent.position,weaponParent.rotation,weaponParent) as GameObject;
             newEquipment.transform.localPosition = Vector3.zero;
             newEquipment.transform.localEulerAngles = Vector3.zero;
+            newEquipment.GetComponent<Sway>().enabled = photonView.IsMine;
 
             currentWeapon = newEquipment;
         }

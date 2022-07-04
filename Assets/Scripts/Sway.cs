@@ -4,27 +4,27 @@ using UnityEngine;
 using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Sway : MonoBehaviourPunCallbacks
+    public class Sway : MonoBehaviour
     {   
         // Basically Sway is to add the 
 
         #region Variables
         public float intensity;
         public float smooth;
-
+        
         private Quaternion origin_rotation;
         #endregion
         
         #region Monobehaviour
         // Start is called before the first frame update
         void Start()
-        {
+        {   
             origin_rotation = transform.localRotation;
         }
 
         // Update is called once per frame
         void Update()
-        {
+        {   
             UpdateSway();
         }
         #endregion

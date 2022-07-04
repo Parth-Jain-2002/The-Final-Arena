@@ -31,7 +31,8 @@ namespace Com.ParthJain.FPSShooter{
 
         // Update is called once per frame
         void Update()
-        {
+        {   
+            if(!photonView.IsMine) return;
             SetY();
             SetX();
             UpdateCursorLock();
