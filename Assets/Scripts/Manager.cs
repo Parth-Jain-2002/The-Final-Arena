@@ -7,7 +7,7 @@ namespace Com.ParthJain.FPSShooter{
     public class Manager : MonoBehaviour
     {   
         public string player_prefab;
-        public Transform spawn_pos;
+        public Transform[] spawn_pos;
 
         // Start is called before the first frame update
         void Start()
@@ -16,7 +16,8 @@ namespace Com.ParthJain.FPSShooter{
         }
 
         public void Spawn(){
-            PhotonNetwork.Instantiate(player_prefab, spawn_pos.position, spawn_pos.rotation);
+            Transform spawn = spawn_pos[Random.Range(0,spawn_pos.Length)];
+            PhotonNetwork.Instantiate(player_prefab, spawn.position, spawn.rotation);
         }
     }
 }

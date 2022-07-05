@@ -29,12 +29,15 @@ namespace Com.ParthJain.FPSShooter{
         
         private float currentHealth;
 
+        private Manager manager;
+
         #endregion
         
         #region Monobehaviour
         // Start is called before the first frame update
         void Start()
         {   
+            manager = GameObject.Find("Manager").GetComponent<Manager>();
             currentHealth = maxHealth;
 
             cameraParent.SetActive(photonView.IsMine);
@@ -141,7 +144,10 @@ namespace Com.ParthJain.FPSShooter{
                 currentHealth -= damage;
                 Debug.Log(currentHealth);
 
-                if(currentHealth <= 0) Debug.Log("YOU DIED");
+                if(currentHealth <= 0){
+                    manager.Spawn();
+                    PhotonNetwork.Destroy(gameObject);
+                }
             }
         }
 
