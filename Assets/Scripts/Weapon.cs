@@ -62,7 +62,7 @@ namespace Com.ParthJain.FPSShooter{
             GameObject newEquipment = Instantiate(loadOut[ind].prefab,weaponParent.position,weaponParent.rotation,weaponParent) as GameObject;
             newEquipment.transform.localPosition = Vector3.zero;
             newEquipment.transform.localEulerAngles = Vector3.zero;
-            newEquipment.GetComponent<Sway>().enabled = photonView.IsMine;
+            newEquipment.GetComponent<Sway>().isMine = photonView.IsMine;
 
             currentWeapon = newEquipment;
         }
@@ -102,6 +102,7 @@ namespace Com.ParthJain.FPSShooter{
                     // Shooting other player
                     if(hit.collider.gameObject.layer == 9){
                         // Call to Damage the Player
+                        hit.collider.gameObject.GetPhotonView().RPC("TakeDamage",RpcTarget.All, loadOut[currentIndex].damage);
                     }
                 }
             }
@@ -113,6 +114,12 @@ namespace Com.ParthJain.FPSShooter{
             // CoolDown
             currentCoolDown = loadOut[currentIndex].firerate;
         }
+
+        [PunRPC]
+        private void TakeDamage(int damage){
+            GetComponent<Motion>().TakeDamage(damage);
+        }
+
         #endregion
     }
 }

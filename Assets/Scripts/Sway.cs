@@ -11,6 +11,7 @@ namespace Com.ParthJain.FPSShooter{
         #region Variables
         public float intensity;
         public float smooth;
+        public bool isMine;
         
         private Quaternion origin_rotation;
         #endregion
@@ -35,6 +36,11 @@ namespace Com.ParthJain.FPSShooter{
             // controls for input
             float xmouse = Input.GetAxis("Mouse X");
             float ymouse = Input.GetAxis("Mouse Y");
+
+            if(!isMine){
+                xmouse = 0;
+                ymouse = 0;
+            }
             
             // calculate target rotation
             Quaternion x_adj = Quaternion.AngleAxis(-xmouse* intensity, Vector3.up);

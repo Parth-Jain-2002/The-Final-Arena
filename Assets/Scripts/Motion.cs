@@ -10,6 +10,7 @@ namespace Com.ParthJain.FPSShooter{
         public float speed;
         public float sprintMultiplier;
         public float jumpForce;
+        public float maxHealth;
         public Camera normalCam;
         public GameObject cameraParent;
         public Transform weaponParent;
@@ -26,12 +27,16 @@ namespace Com.ParthJain.FPSShooter{
         private float baseFOV;
         private float sprintFOVModifier=1.25f;
         
+        private float currentHealth;
+
         #endregion
         
         #region Monobehaviour
         // Start is called before the first frame update
         void Start()
         {   
+            currentHealth = maxHealth;
+
             cameraParent.SetActive(photonView.IsMine);
             
             if(!photonView.IsMine) gameObject.layer = 9;
@@ -127,6 +132,19 @@ namespace Com.ParthJain.FPSShooter{
         void HeadBob(float z, float xintensity, float yintensity){
             targetWeaponPosition = weaponParentOrigin + new Vector3(Mathf.Cos(z) * xintensity, Mathf.Sin(z * 2) * yintensity, 0);
         }
+        #endregion
+
+        #region Public
+        
+        public void TakeDamage(int damage){
+            if(photonView.IsMine){
+                currentHealth -= damage;
+                Debug.Log(currentHealth);
+
+                if(currentHealth <= 0) Debug.Log("YOU DIED");
+            }
+        }
+
         #endregion
     }
 }
