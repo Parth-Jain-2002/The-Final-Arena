@@ -28,25 +28,24 @@ namespace Com.ParthJain.FPSShooter{
         // Update is called once per frame
         void Update()
         {   
-            if(!photonView.IsMine) return;
-
-            if(Input.GetKeyDown(KeyCode.Alpha1)) photonView.RPC("Equip",RpcTarget.All,0);
+            if(photonView.IsMine && Input.GetKeyDown(KeyCode.Alpha1)) photonView.RPC("Equip",RpcTarget.All,0);
             // 0 - Left Mouse 1-Right Mouse
             if(currentWeapon!=null){
-                Aim(Input.GetMouseButton(1));
-                
-                // If player hits left mouse button
-                if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
-                    photonView.RPC("Shoot",RpcTarget.All);
+                if(photonView.IsMine){
+                    Aim(Input.GetMouseButton(1));
+                    
+                    // If player hits left mouse button
+                    if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
+                        photonView.RPC("Shoot",RpcTarget.All);
+                    }
+                    
+                    // Cooldown - controls interval between two bullet shoot
+                    if(currentCoolDown > 0) currentCoolDown -= Time.deltaTime;
                 }
-
                 // Elasticity in weapon
                 if(currentWeapon!= null){
                     currentWeapon.transform.localPosition = Vector3.Lerp(currentWeapon.transform.localPosition,Vector3.zero,Time.deltaTime * 4f);
                 }
-
-                // Cooldown - controls interval between two bullet shoot
-                if(currentCoolDown > 0) currentCoolDown -= Time.deltaTime;
             }
 
         }
