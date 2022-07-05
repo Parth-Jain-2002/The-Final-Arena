@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 namespace Com.ParthJain.FPSShooter{
-    public class Motion : MonoBehaviourPunCallbacks
+    public class Player : MonoBehaviourPunCallbacks
     {   
         #region  Variables
         public float speed;
@@ -16,7 +16,8 @@ namespace Com.ParthJain.FPSShooter{
         public Transform weaponParent;
         public Transform groundDetector;
         public LayerMask ground;
-
+        
+        private Transform uiHealthBar;
         private Rigidbody rig;
         private Vector3 weaponParentOrigin;
         private Vector3 targetWeaponPosition;
@@ -48,6 +49,11 @@ namespace Com.ParthJain.FPSShooter{
             if(Camera.main) Camera.main.enabled = false;
             rig = GetComponent<Rigidbody>();
             weaponParentOrigin = weaponParent.localPosition;
+            
+            if(photonView.IsMine){
+               uiHealthBar = GameObject.Find("HUD/Health/Bar").transform;
+               RefreshHealthBar();
+            }
         }
         
         void Update(){
@@ -89,6 +95,9 @@ namespace Com.ParthJain.FPSShooter{
                 movementCounter+=Time.deltaTime * 3f;
                 weaponParent.localPosition = Vector3.Lerp(weaponParent.localPosition, targetWeaponPosition, Time.deltaTime * 15f );
             }
+            
+            // Update Health Bar
+            RefreshHealthBar();
         }   
         
         // Update is called once per frame
@@ -135,6 +144,12 @@ namespace Com.ParthJain.FPSShooter{
         void HeadBob(float z, float xintensity, float yintensity){
             targetWeaponPosition = weaponParentOrigin + new Vector3(Mathf.Cos(z) * xintensity, Mathf.Sin(z * 2) * yintensity, 0);
         }
+        
+        void RefreshHealthBar(){
+            float healthRatio = (float) currentHealth/ (float) maxHealth;
+            uiHealthBar.localScale = Vector3.Lerp(uiHealthBar.localScale,new Vector3(healthRatio,1,1),Time.deltaTime * 8f); 
+        }
+
         #endregion
 
         #region Public
@@ -142,7 +157,7 @@ namespace Com.ParthJain.FPSShooter{
         public void TakeDamage(int damage){
             if(photonView.IsMine){
                 currentHealth -= damage;
-                Debug.Log(currentHealth);
+                RefreshHealthBar();
 
                 if(currentHealth <= 0){
                     manager.Spawn();

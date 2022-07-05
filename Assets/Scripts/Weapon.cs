@@ -116,7 +116,7 @@ namespace Com.ParthJain.FPSShooter{
 
         [PunRPC]
         private void TakeDamage(int damage){
-            GetComponent<Motion>().TakeDamage(damage);
+            GetComponent<Player>().TakeDamage(damage);
         }
 
         #endregion
