@@ -33,6 +33,8 @@ namespace Com.ParthJain.FPSShooter{
         void Start()
         {   
             cameraParent.SetActive(photonView.IsMine);
+            
+            if(!photonView.IsMine) gameObject.layer = 9;
 
             baseFOV = normalCam.fieldOfView;
             if(Camera.main) Camera.main.enabled = false;

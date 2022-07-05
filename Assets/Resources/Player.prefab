@@ -361,7 +361,7 @@ MonoBehaviour:
   bulletHole: {fileID: 6751951820332611204, guid: 19e10fb65cec0fc469ba2ee7d6e89e87, type: 3}
   canBeShot:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 631
 --- !u!114 &7910452819002133805
 MonoBehaviour:
   m_ObjectHideFlags: 0

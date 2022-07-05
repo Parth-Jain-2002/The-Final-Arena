@@ -30,14 +30,14 @@ namespace Com.ParthJain.FPSShooter{
         {   
             if(!photonView.IsMine) return;
 
-            if(Input.GetKeyDown(KeyCode.Alpha1)) Equip(0);
+            if(Input.GetKeyDown(KeyCode.Alpha1)) photonView.RPC("Equip",RpcTarget.All,0);
             // 0 - Left Mouse 1-Right Mouse
             if(currentWeapon!=null){
                 Aim(Input.GetMouseButton(1));
                 
                 // If player hits left mouse button
                 if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
-                    Shoot();
+                    photonView.RPC("Shoot",RpcTarget.All);
                 }
 
                 // Elasticity in weapon
@@ -53,6 +53,7 @@ namespace Com.ParthJain.FPSShooter{
         #endregion
         
         #region Private
+        [PunRPC]
         void Equip(int ind){
             if(currentWeapon!=null) Destroy(currentWeapon);
 
@@ -78,7 +79,8 @@ namespace Com.ParthJain.FPSShooter{
                 anchor.position = Vector3.Lerp(anchor.position,stateHip.position,Time.deltaTime * loadOut[currentIndex].aimSpeed);
             }
         }
-
+        
+        [PunRPC]
         void Shoot(){
             Transform  spawn = transform.Find("Cameras/NormalCamera");
             
@@ -95,6 +97,13 @@ namespace Com.ParthJain.FPSShooter{
                 GameObject newHole = Instantiate(bulletHole,hit.point + hit.normal * 0.001f, Quaternion.identity) as GameObject;
                 newHole.transform.LookAt(hit.point + hit.normal );
                 Destroy(newHole,5f);
+
+                if(photonView.IsMine){
+                    // Shooting other player
+                    if(hit.collider.gameObject.layer == 9){
+                        // Call to Damage the Player
+                    }
+                }
             }
 
             // Gun FX
