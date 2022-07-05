@@ -29,6 +29,7 @@ namespace Com.ParthJain.FPSShooter{
         void Update()
         {   
             if(photonView.IsMine && Input.GetKeyDown(KeyCode.Alpha1)) photonView.RPC("Equip",RpcTarget.All,0);
+            if(photonView.IsMine && Input.GetKeyDown(KeyCode.Alpha2)) photonView.RPC("Equip",RpcTarget.All,1);
             // 0 - Left Mouse 1-Right Mouse
             if(currentWeapon!=null){
                 if(photonView.IsMine){

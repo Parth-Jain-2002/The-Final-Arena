@@ -357,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadOut:
+  - {fileID: 11400000, guid: 4b16e9cd4f89f5c43ab8a6cb1bcc6435, type: 2}
   - {fileID: 11400000, guid: 64408dfb19250f84ca17297359f8c381, type: 2}
   weaponParent: {fileID: 5731634898228842726}
   bulletHole: {fileID: 6751951820332611204, guid: 19e10fb65cec0fc469ba2ee7d6e89e87, type: 3}
