@@ -36,8 +36,15 @@ namespace Com.ParthJain.FPSShooter{
                     Aim(Input.GetMouseButton(1));
                     
                     // If player hits left mouse button
-                    if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
-                        photonView.RPC("Shoot",RpcTarget.All);
+                    if(loadOut[currentIndex].burst !=1){
+                        if(Input.GetMouseButtonDown(0) && currentCoolDown<=0){
+                            photonView.RPC("Shoot",RpcTarget.All);
+                        }
+                    }
+                    else{
+                        if(Input.GetMouseButton(0) && currentCoolDown<=0){
+                            photonView.RPC("Shoot",RpcTarget.All);
+                        }
                     }
                     
                     // Cooldown - controls interval between two bullet shoot

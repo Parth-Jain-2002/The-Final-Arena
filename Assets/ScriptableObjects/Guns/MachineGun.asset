@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: MachineGun
   damage: 100
-  burst: 0
+  burst: 1
   firerate: 0.1
   bloom: 20
   recoil: 10
