@@ -135,6 +135,13 @@ namespace Com.ParthJain.FPSShooter{
             if(isSprinting) normalCam.fieldOfView = Mathf.Lerp(normalCam.fieldOfView, baseFOV * sprintFOVModifier, Time.deltaTime * 8f);
             else normalCam.fieldOfView = Mathf.Lerp(normalCam.fieldOfView, baseFOV , Time.deltaTime * 8f);
         }
+
+        void OnTriggerEnter(Collider collider){
+            if(collider.tag == "FallLayer"){
+                TakeDamage((int)currentHealth);
+            }     
+        }
+        
         #endregion
     
         #region Private
