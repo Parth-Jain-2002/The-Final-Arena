@@ -35,7 +35,7 @@ https://user-images.githubusercontent.com/72060359/177754890-2b53ca4a-4494-4a32-
 > This clip shows the gun and its effect. There are 2 guns presently: A Pistol and A Machine Gun. You can also aim the gun using left mouse button. If you observe closely, the gun moves a little slowly while moving left to right or top to bottom. This is because of swaying effect, added to make it look more realistic. Whenever bullet is fired, the gun recoils. Even when you are on rest, gun moves slightly. This happens due to breathing of the player, added to make the game close to real life.
 
 ## _Game Download_
-> You can download the game from the drive link : https://drive.google.com/file/d/1KUxGwZUDUxRg_pmFQoFRf4DTff62SZRE/view?usp=sharing 
+> You can download the game from the drive link : https://drive.google.com/file/d/1UrVv0wbgunfFcWSyUx_8oRv8xxqK61sQ/view?usp=sharing
 
 ## _Future Tasks_
 - [ ] Adding a humanoid character to the game and doing animation rigging for it
