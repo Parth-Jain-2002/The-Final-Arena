@@ -46,4 +46,4 @@ https://user-images.githubusercontent.com/72060359/177754890-2b53ca4a-4494-4a32-
 - [ ] Adding Team Deathmatch and some Solo Levels
 - [ ] Making the game compatible for Android and Web
 
-*Any suggestions and feedback will be hightly apprecipated.*
+*Any suggestions and feedback will be hightly apprecipated. Suggestions for a better game name will be valuable .*
