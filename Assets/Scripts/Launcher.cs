@@ -12,7 +12,6 @@ namespace Com.ParthJain.FPSShooter{
         }
 
         public override void OnConnectedToMaster(){
-            Join();
             base.OnConnectedToMaster();
         }
         
