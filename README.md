@@ -42,7 +42,7 @@ https://user-images.githubusercontent.com/72060359/177754890-2b53ca4a-4494-4a32-
 - [ ] Improving and make new maps for enhanced performance
 - [ ] Adding new weapons and making the aiming system more better
 - [ ] Creating weapon pickups and powerups 
-- [ ] Making a game menu
+- [X] Making a game menu
 - [ ] Adding Team Deathmatch and some Solo Levels
 - [ ] Making the game compatible for Android and Web
 
