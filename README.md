@@ -45,5 +45,6 @@ https://user-images.githubusercontent.com/72060359/177754890-2b53ca4a-4494-4a32-
 - [X] Making a game menu
 - [ ] Adding Team Deathmatch and some Solo Levels
 - [ ] Making the game compatible for Android and Web
+- [ ] Ultimate Aim: Making this VR compatible, perfecting motion detection using VR headsets
 
 *Any suggestions and feedback will be hightly apprecipated. Suggestions for a better game name will be valuable .*
